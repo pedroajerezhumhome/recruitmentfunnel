@@ -1,8 +1,15 @@
 // Home Page (/)
 "use client";
 
+import type { Metadata } from "next";
 import { useState, useEffect } from "react";
 import Script from "next/script";
+
+export const metadata: Metadata = {
+  title: "House Manager Services | Your Home on Autopilot | HUM Home",
+  description:
+    "A dedicated House Manager who runs your home end-to-end. Systems, staffing, resets, and support. No managing. No thinking.",
+};
 
 export default function Home() {
   const [email, setEmail] = useState("");
