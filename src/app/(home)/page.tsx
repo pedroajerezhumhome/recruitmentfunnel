@@ -1,15 +1,8 @@
 // Home Page (/)
 "use client";
 
-import type { Metadata } from "next";
 import { useState, useEffect } from "react";
 import Script from "next/script";
-
-export const metadata: Metadata = {
-  title: "House Manager Services | Your Home on Autopilot | HUM Home",
-  description:
-    "A dedicated House Manager who runs your home end-to-end. Systems, staffing, resets, and support. No managing. No thinking.",
-};
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -354,8 +347,7 @@ export default function Home() {
               onClick={() => scrollToSection("cta")}
               className="px-6 sm:px-8 py-3 sm:py-4 bg-[#1a1a1a] text-white hover:bg-black font-medium rounded-full transition-colors text-sm sm:text-lg"
             >
-              <span className="hidden sm:inline">Book Your Free Assessment</span>
-              <span className="sm:hidden">Book</span>
+              Book a Free Assessment
             </button>
             <button
               onClick={() => scrollToSection("waitlist")}
