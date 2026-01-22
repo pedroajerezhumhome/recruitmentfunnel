@@ -26,15 +26,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script id="mouseflow" strategy="afterInteractive">{`
-          window._mfq = window._mfq || [];
-          (function() {
-            var mf = document.createElement("script");
-            mf.type = "text/javascript"; mf.defer = true;
-            mf.src = "//cdn.mouseflow.com/projects/4cd6aae8-538e-4882-8893-da78958f2b5a.js";
-            document.getElementsByTagName("head")[0].appendChild(mf);
-          })();
-        `}</Script>
         <Script id="gtm-head" strategy="afterInteractive">{`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -82,6 +73,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Script id="mouseflow" strategy="afterInteractive">{`
+          window._mfq = window._mfq || [];
+          (function() {
+            var mf = document.createElement("script");
+            mf.type = "text/javascript"; mf.defer = true;
+            mf.src = "//cdn.mouseflow.com/projects/4cd6aae8-538e-4882-8893-da78958f2b5a.js";
+            document.getElementsByTagName("head")[0].appendChild(mf);
+          })();
+        `}</Script>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-M3HSXX46"
