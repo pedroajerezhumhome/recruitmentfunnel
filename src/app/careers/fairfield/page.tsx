@@ -106,14 +106,14 @@ export default function Home() {
       {/* Static Logo (visible before scroll) */}
       <div className={`fixed top-0 left-0 right-0 z-40 transition-opacity duration-300 ${showNav ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
-          <img src="/hum-logo.png" alt="HUM" className="h-6 sm:h-8 w-auto" />
+          <img src="/hum-logo.jpg" alt="HUM" className="h-6 sm:h-8 w-auto" />
         </div>
       </div>
 
       {/* Navigation (appears on scroll) */}
       <nav className={`fixed top-0 left-0 right-0 z-50 bg-[#fefdfb]/90 backdrop-blur-md transition-all duration-300 ${showNav ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <img src="/hum-logo.png" alt="HUM" className="h-4 sm:h-5 w-auto" />
+          <img src="/hum-logo.jpg" alt="HUM" className="h-4 sm:h-5 w-auto" />
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setFaqOpen(true)}
@@ -678,7 +678,7 @@ export default function Home() {
       <footer className="py-6 sm:py-8 px-4 sm:px-6 bg-[#fefdfb] text-[#454545]">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <img src="/hum-logo.png" alt="HUM" className="h-5 sm:h-6 w-auto" />
+            <img src="/hum-logo.jpg" alt="HUM" className="h-5 sm:h-6 w-auto" />
             <div className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2">
               <a href="/" className="text-[10px] sm:text-xs text-[#999] hover:text-[#666] transition-colors">
                 Home
