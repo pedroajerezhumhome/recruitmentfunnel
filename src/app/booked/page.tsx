@@ -8,6 +8,198 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+
+// Helper function to get ordinal suffix for day
+function getOrdinalSuffix(day: number): string {
+  if (day > 3 && day < 21) return "th";
+  switch (day % 10) {
+    case 1: return "st";
+    case 2: return "nd";
+    case 3: return "rd";
+    default: return "th";
+  }
+}
+
+// Countdown Timer Component
+function CountdownTimer() {
+  const searchParams = useSearchParams();
+
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [status, setStatus] = useState<"counting" | "now" | "passed" | "hidden">("hidden");
+  const [formattedDateTime, setFormattedDateTime] = useState("");
+  const [assignedTo, setAssignedTo] = useState("");
+
+  useEffect(() => {
+    // Parse URL parameters
+    const eventStartTime = searchParams.get("event_start_time");
+    const timeZone = searchParams.get("timeZone") || "America/Chicago";
+    const assignedToParam = searchParams.get("assigned_to");
+
+    // If no event time, hide the section
+    if (!eventStartTime) {
+      setStatus("hidden");
+      return;
+    }
+
+    // Decode and parse the event time
+    const decodedTime = decodeURIComponent(eventStartTime);
+    const targetDate = new Date(decodedTime);
+
+    // Validate the date
+    if (isNaN(targetDate.getTime())) {
+      setStatus("hidden");
+      return;
+    }
+
+    // Set assigned to name
+    if (assignedToParam) {
+      setAssignedTo(decodeURIComponent(assignedToParam).replace(/\+/g, " ").trim());
+    }
+
+    // Format the date for display
+    const decodedTimeZone = decodeURIComponent(timeZone);
+
+    const weekday = targetDate.toLocaleDateString("en-US", {
+      weekday: "long",
+      timeZone: decodedTimeZone,
+    });
+
+    const month = targetDate.toLocaleDateString("en-US", {
+      month: "long",
+      timeZone: decodedTimeZone,
+    });
+
+    const day = parseInt(targetDate.toLocaleDateString("en-US", {
+      day: "numeric",
+      timeZone: decodedTimeZone,
+    }));
+
+    const time = targetDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: decodedTimeZone,
+    });
+
+    // Get timezone abbreviation
+    const tzAbbrev = targetDate.toLocaleTimeString("en-US", {
+      timeZoneName: "short",
+      timeZone: decodedTimeZone,
+    }).split(" ").pop();
+
+    setFormattedDateTime(`${weekday}, ${month} ${day}${getOrdinalSuffix(day)} at ${time} ${tzAbbrev}`);
+
+    // Update countdown every second
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = targetDate.getTime() - now.getTime();
+
+      if (diff <= 0 && diff > -60000) {
+        // Within 1 minute of start time
+        setStatus("now");
+      } else if (diff <= -60000) {
+        // Past the start time
+        setStatus("passed");
+      } else {
+        setStatus("counting");
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        setCountdown({ days, hours, minutes, seconds });
+      }
+    };
+
+    // Initial update
+    updateCountdown();
+
+    // Set interval
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, [searchParams]);
+
+  // Don't render if hidden
+  if (status === "hidden") return null;
+
+  return (
+    <section className="px-4 pt-2 pb-10 sm:pt-4 sm:pb-16 bg-[#fefdfb]">
+      <div className="max-w-[560px] mx-auto">
+        <div className="bg-[#ebe6df] rounded-2xl sm:rounded-3xl px-6 py-8 sm:px-10 sm:py-10 text-center">
+          {status === "counting" && (
+            <>
+              <p className="text-[14px] sm:text-[18px] text-[#555] mb-4 sm:mb-6">
+                Your consultation is in:
+              </p>
+
+              {/* Countdown Display */}
+              <div className="flex justify-center gap-3 sm:gap-6 mb-6 sm:mb-8">
+                <div className="flex flex-col items-center">
+                  <span className="text-[26px] sm:text-[46px] font-semibold text-[#323B46] leading-none">
+                    {countdown.days}
+                  </span>
+                  <span className="text-[10px] sm:text-[12px] uppercase tracking-[0.1em] text-[#888] mt-1">
+                    days
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[26px] sm:text-[46px] font-semibold text-[#323B46] leading-none">
+                    {countdown.hours}
+                  </span>
+                  <span className="text-[10px] sm:text-[12px] uppercase tracking-[0.1em] text-[#888] mt-1">
+                    hours
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[26px] sm:text-[46px] font-semibold text-[#323B46] leading-none">
+                    {countdown.minutes}
+                  </span>
+                  <span className="text-[10px] sm:text-[12px] uppercase tracking-[0.1em] text-[#888] mt-1">
+                    minutes
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[26px] sm:text-[46px] font-semibold text-[#323B46] leading-none">
+                    {countdown.seconds}
+                  </span>
+                  <span className="text-[10px] sm:text-[12px] uppercase tracking-[0.1em] text-[#888] mt-1">
+                    seconds
+                  </span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {status === "now" && (
+            <p className="text-[20px] sm:text-[28px] font-semibold text-[#b8926b] mb-4 sm:mb-6">
+              Your call is starting now!
+            </p>
+          )}
+
+          {status === "passed" && (
+            <p className="text-[14px] sm:text-[18px] text-[#555] mb-4 sm:mb-6">
+              Your call was scheduled for:
+            </p>
+          )}
+
+          {/* Date/Time Display */}
+          <p className="text-[14px] sm:text-[18px] text-[#323B46]">
+            {formattedDateTime}
+          </p>
+
+          {/* Assigned To */}
+          {assignedTo && (
+            <p className="text-[13px] sm:text-[16px] text-[#888] mt-1">
+              with {assignedTo}
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function BookedPage() {
   return (
@@ -40,6 +232,156 @@ export default function BookedPage() {
           <p className="text-[14px] sm:text-[20px] text-[#555] max-w-xl mx-auto mb-4 sm:mb-8 leading-relaxed px-2 sm:px-0">
             Your life is about to get a whole lot easier. All the details for your upcoming call are on their way to your inbox and phone. But first, please review the important materials below.
           </p>
+        </div>
+      </section>
+
+      {/* ===================================================================
+          COUNTDOWN TIMER - Time Until Consultation
+      =================================================================== */}
+      <Suspense fallback={null}>
+        <CountdownTimer />
+      </Suspense>
+
+      {/* ===================================================================
+          WHAT HAPPENS NEXT - Timeline Section
+      =================================================================== */}
+      <section className="px-4 py-8 sm:py-16 bg-[#f8f6f2]">
+        <div className="max-w-4xl mx-auto">
+          {/* Section Header */}
+          <h2 className="text-[26px] sm:text-[36px] md:text-[42px] font-normal text-[#323B46] leading-tight mb-8 sm:mb-12 text-center">
+            What Happens Next
+          </h2>
+
+          {/* Timeline - Desktop (horizontal) */}
+          <div className="hidden md:block">
+            <div className="relative">
+              {/* Connector Line */}
+              <div className="absolute top-4 left-[12.5%] right-[12.5%] h-[2px] bg-[#e0d8cd]" />
+
+              {/* Timeline Steps */}
+              <div className="grid grid-cols-4 gap-4">
+                {/* Step 1 - TODAY (highlighted) */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-8 h-8 rounded-full bg-[#b8926b] flex items-center justify-center mb-4 relative z-10 ring-4 ring-[#f8f6f2]">
+                    <span className="text-white text-sm font-semibold">1</span>
+                  </div>
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#b8926b] mb-2">
+                    TODAY
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    Complete the two steps below, accept your calendar invite and read your pre-call guide
+                  </p>
+                </div>
+
+                {/* Step 2 - Before Your Call */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-8 h-8 rounded-full bg-[#d4ccc0] flex items-center justify-center mb-4 relative z-10 ring-4 ring-[#f8f6f2]">
+                    <span className="text-white text-sm font-semibold">2</span>
+                  </div>
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#888] mb-2">
+                    BEFORE YOUR CALL
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    Hope, our AI assistant, will call to ask a few questions so we&apos;re fully prepared and your time on the call is well spent
+                  </p>
+                </div>
+
+                {/* Step 3 - On The Call */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-8 h-8 rounded-full bg-[#d4ccc0] flex items-center justify-center mb-4 relative z-10 ring-4 ring-[#f8f6f2]">
+                    <span className="text-white text-sm font-semibold">3</span>
+                  </div>
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#888] mb-2">
+                    ON THE CALL
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    We&apos;ll talk through your situation and see if HUM is the right fit
+                  </p>
+                </div>
+
+                {/* Step 4 - After */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-8 h-8 rounded-full bg-[#d4ccc0] flex items-center justify-center mb-4 relative z-10 ring-4 ring-[#f8f6f2]">
+                    <span className="text-white text-sm font-semibold">4</span>
+                  </div>
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#888] mb-2">
+                    AFTER
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    If it makes sense, we&apos;ll show you exactly how to get started
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Timeline - Mobile (vertical) */}
+          <div className="md:hidden">
+            <div className="relative pl-12">
+              {/* Vertical Connector Line */}
+              <div className="absolute left-[28px] top-4 bottom-4 w-[2px] bg-[#e0d8cd]" />
+
+              {/* Step 1 - TODAY (highlighted) */}
+              <div className="relative pb-8">
+                <div className="absolute left-[-36px] w-8 h-8 rounded-full bg-[#b8926b] flex items-center justify-center ring-4 ring-[#f8f6f2]">
+                  <span className="text-white text-sm font-semibold">1</span>
+                </div>
+                <div className="pt-1">
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#b8926b] mb-1">
+                    TODAY
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    Complete the two steps below, accept your calendar invite and read your pre-call guide
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 - Before Your Call */}
+              <div className="relative pb-8">
+                <div className="absolute left-[-36px] w-8 h-8 rounded-full bg-[#d4ccc0] flex items-center justify-center ring-4 ring-[#f8f6f2]">
+                  <span className="text-white text-sm font-semibold">2</span>
+                </div>
+                <div className="pt-1">
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#888] mb-1">
+                    BEFORE YOUR CALL
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    Hope, our AI assistant, will call to ask a few questions so we&apos;re fully prepared and your time on the call is well spent
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 - On The Call */}
+              <div className="relative pb-8">
+                <div className="absolute left-[-36px] w-8 h-8 rounded-full bg-[#d4ccc0] flex items-center justify-center ring-4 ring-[#f8f6f2]">
+                  <span className="text-white text-sm font-semibold">3</span>
+                </div>
+                <div className="pt-1">
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#888] mb-1">
+                    ON THE CALL
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    We&apos;ll talk through your situation and see if HUM is the right fit
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 4 - After */}
+              <div className="relative">
+                <div className="absolute left-[-36px] w-8 h-8 rounded-full bg-[#d4ccc0] flex items-center justify-center ring-4 ring-[#f8f6f2]">
+                  <span className="text-white text-sm font-semibold">4</span>
+                </div>
+                <div className="pt-1">
+                  <p className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[#888] mb-1">
+                    AFTER
+                  </p>
+                  <p className="text-[14px] text-[#555] leading-relaxed">
+                    If it makes sense, we&apos;ll show you exactly how to get started
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
