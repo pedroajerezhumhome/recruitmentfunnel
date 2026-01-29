@@ -492,7 +492,7 @@ export default function BookedPage() {
               href="https://slaw-floral-56242297.figma.site"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-6 sm:px-10 py-3.5 sm:py-4 bg-[#3d3d3d] text-white hover:bg-[#2a2a2a] font-medium rounded-full transition-colors text-[10px] sm:text-[12px] uppercase tracking-[0.15em]"
+              className="inline-block px-6 sm:px-10 py-3.5 sm:py-4 bg-[#1a1a1a] text-white hover:bg-black font-medium rounded-full transition-colors text-sm sm:text-base"
             >
               Download the Pre-Call PDF
             </a>

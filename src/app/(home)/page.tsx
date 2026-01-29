@@ -298,9 +298,10 @@ export default function Home() {
       </section>
 
       {/* The Problem Section */}
-      <section className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-0">
+      <section className="sm:min-h-screen flex items-center justify-center px-4 py-16 sm:py-0 bg-[#f8f6f2]">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+          <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+          <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
             The Reality
           </p>
           <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#454545] leading-tight mb-8 sm:mb-16">
@@ -324,10 +325,11 @@ export default function Home() {
       {/* The HUM Difference */}
       <section
         id="difference"
-        className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-0 bg-[#F0F0F0]"
+        className="sm:min-h-screen flex items-center justify-center px-4 py-16 sm:py-0"
       >
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+          <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+          <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
             The HUM Difference
           </p>
           <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#454545] leading-tight mb-4 sm:mb-6">
@@ -341,7 +343,7 @@ export default function Home() {
             actually runs without you.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 sm:gap-8 text-left">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 text-left">
             {[
               {
                 number: "01",
@@ -361,8 +363,8 @@ export default function Home() {
                   "Ongoing optimization and support. When something breaks, we handle it.",
               },
             ].map((item, i) => (
-              <div key={i} className="p-4 sm:p-6">
-                <span className="text-[#a67c64] text-base sm:text-xl font-mono">
+              <div key={i} className="bg-[#ebe6df] rounded-2xl sm:rounded-3xl p-6 sm:p-8">
+                <span className="text-[#b8926b] text-base sm:text-xl font-mono">
                   {item.number}
                 </span>
                 <h3 className="text-base sm:text-xl font-medium text-[#323B46] mt-2 sm:mt-3 mb-2">
@@ -380,11 +382,12 @@ export default function Home() {
       {/* How It Works */}
       <section
         id="process"
-        className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-0"
+        className="sm:min-h-screen flex items-center justify-center px-4 py-16 sm:py-0 bg-[#f8f6f2]"
       >
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12 sm:mb-20">
-            <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+            <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+            <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
               How It Works
             </p>
             <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#323B46] leading-tight">
@@ -436,11 +439,12 @@ export default function Home() {
       {/* Measured Impact */}
       <section
         id="impact"
-        className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-0 bg-[#fefdfb]"
+        className="sm:min-h-screen flex items-center justify-center px-4 py-16 sm:py-0"
       >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 sm:mb-20">
-            <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+            <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+            <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
               Measured Impact
             </p>
             <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#454545] leading-tight">
@@ -474,9 +478,10 @@ export default function Home() {
       </section>
 
       {/* Dignity Standard */}
-      <section className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-0">
+      <section className="sm:min-h-screen flex items-center justify-center px-4 py-16 sm:py-0 bg-[#f8f6f2]">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+          <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+          <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
             The Dignity Standard
           </p>
           <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#454545] leading-tight mb-8 sm:mb-12">
@@ -493,10 +498,11 @@ export default function Home() {
       {/* The Guarantee */}
       <section
         id="guarantee"
-        className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-0 bg-[#F0F0F0]"
+        className="sm:min-h-screen flex items-center justify-center px-4 py-16 sm:py-0"
       >
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+          <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+          <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
             The Guarantee
           </p>
           <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#454545] leading-tight mb-4">
@@ -506,13 +512,13 @@ export default function Home() {
             We stay until your home actually runs.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-8 text-center">
+          <div className="grid sm:grid-cols-3 gap-4 sm:gap-6 text-center">
             {[
               { title: "Repair First", description: "We fix the system before replacing people." },
               { title: "Unlimited Replacements", description: "As many times as it takes." },
               { title: "Happy or Full Refund", description: "We stay until you're satisfied." },
             ].map((item, i) => (
-              <div key={i}>
+              <div key={i} className="bg-[#ebe6df] rounded-2xl sm:rounded-3xl p-6 sm:p-8">
                 <h3 className="text-base sm:text-xl font-medium text-[#454545] mb-1">
                   {item.title}
                 </h3>
@@ -526,9 +532,10 @@ export default function Home() {
       </section>
 
       {/* Book a Call / CTA Section */}
-      <section id="cta" className="px-4 py-24 sm:py-24">
-        <div className="max-w-4xl mx-auto text-center w-full">
-          <p className="text-xs uppercase tracking-widest text-[#a67c64] mb-4 sm:mb-6">
+      <section id="cta" className="px-4 py-24 sm:py-24 bg-[#f8f6f2]">
+        <div className="max-w-4xl lg:max-w-6xl mx-auto text-center w-full">
+          <div className="w-10 h-[2px] bg-[#b8926b] mx-auto mb-4"></div>
+          <p className="text-xs uppercase tracking-widest text-[#b8926b] mb-4 sm:mb-6">
             Next Steps
           </p>
           <h2 className="text-[30px] sm:text-[44px] md:text-[56px] font-semibold text-[#454545] leading-tight mb-4">
@@ -539,81 +546,83 @@ export default function Home() {
           </p>
 
           {/* iClosed Widget */}
-          <div className="mb-16 sm:mb-20 -mx-4 sm:mx-0 sm:w-[150%] sm:-ml-[25%]">
+          <div className="mb-12 sm:mb-20 w-full max-w-3xl lg:max-w-6xl mx-auto">
             <div
-              className="iclosed-widget"
+              className="iclosed-widget h-[580px] sm:h-[620px]"
               data-url="https://app.iclosed.io/e/hum/hum-household-assessment"
               title="HUM Household Assessment"
-              style={{ width: "100%", height: "620px" }}
+              style={{ width: "100%" }}
             />
           </div>
 
           {/* Email Fallback */}
           <div id="waitlist" className="border-t border-[#e0e0e0] pt-12 sm:pt-16">
-            <p className="text-base sm:text-lg md:text-xl text-[#888] mb-6">
-              Not ready to talk yet? Stay in the loop.
-            </p>
-            {!submitted ? (
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-3 max-w-xl mx-auto px-4 sm:px-0"
-              >
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="flex-1 px-4 sm:px-5 py-3 sm:py-4 rounded-full border border-[#e0e0e0] bg-[#fefdfb] text-[#323B46] placeholder-[#999] focus:outline-none focus:border-[#666] transition-colors text-sm sm:text-base"
-                  />
-                  <select
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    required
-                    className={`px-4 sm:px-5 py-3 sm:py-4 rounded-full border appearance-none cursor-pointer border-[#e0e0e0] bg-[#fefdfb] text-[#323B46] focus:outline-none focus:border-[#666] transition-colors text-sm sm:text-base ${
-                      !city ? "text-[#999]" : ""
-                    }`}
-                  >
-                    <option value="" disabled>
-                      Select your city
-                    </option>
-                    {cities.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {city === "Other" && (
-                  <input
-                    type="text"
-                    placeholder="Enter your city"
-                    value={otherCity}
-                    onChange={(e) => setOtherCity(e.target.value)}
-                    required
-                    className="px-4 sm:px-5 py-3 sm:py-4 rounded-full border border-[#e0e0e0] bg-[#fefdfb] text-[#323B46] placeholder-[#999] focus:outline-none focus:border-[#666] transition-colors text-sm sm:text-base"
-                  />
-                )}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-[#1a1a1a] text-white hover:bg-black font-medium rounded-full transition-colors text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            <div className="bg-[#ebe6df] rounded-2xl sm:rounded-3xl p-6 sm:p-10 max-w-xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-[#888] mb-6">
+                Not ready to talk yet? Stay in the loop.
+              </p>
+              {!submitted ? (
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-3"
                 >
-                  {isSubmitting ? "Submitting..." : "Sign Me Up"}
-                </button>
-                {submitError && (
-                  <p className="text-sm text-red-600">{submitError}</p>
-                )}
-              </form>
-            ) : (
-              <div className="inline-block">
-                <p className="text-lg font-medium text-[#323B46]">
-                  You&apos;re on the list.
-                </p>
-                <p className="mt-1 text-[#666]">We&apos;ll be in touch soon.</p>
-              </div>
-            )}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="flex-1 px-4 sm:px-5 py-3 sm:py-4 rounded-full border border-[#d5d0c8] bg-white text-[#323B46] placeholder-[#999] focus:outline-none focus:border-[#666] transition-colors text-sm sm:text-base"
+                    />
+                    <select
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      required
+                      className={`px-4 sm:px-5 py-3 sm:py-4 rounded-full border appearance-none cursor-pointer border-[#d5d0c8] bg-white text-[#323B46] focus:outline-none focus:border-[#666] transition-colors text-sm sm:text-base ${
+                        !city ? "text-[#999]" : ""
+                      }`}
+                    >
+                      <option value="" disabled>
+                        Select your city
+                      </option>
+                      {cities.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {city === "Other" && (
+                    <input
+                      type="text"
+                      placeholder="Enter your city"
+                      value={otherCity}
+                      onChange={(e) => setOtherCity(e.target.value)}
+                      required
+                      className="px-4 sm:px-5 py-3 sm:py-4 rounded-full border border-[#d5d0c8] bg-white text-[#323B46] placeholder-[#999] focus:outline-none focus:border-[#666] transition-colors text-sm sm:text-base"
+                    />
+                  )}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-[#1a1a1a] text-white hover:bg-black font-medium rounded-full transition-colors text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "Submitting..." : "Sign Me Up"}
+                  </button>
+                  {submitError && (
+                    <p className="text-sm text-red-600">{submitError}</p>
+                  )}
+                </form>
+              ) : (
+                <div className="inline-block">
+                  <p className="text-lg font-medium text-[#323B46]">
+                    You&apos;re on the list.
+                  </p>
+                  <p className="mt-1 text-[#666]">We&apos;ll be in touch soon.</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
