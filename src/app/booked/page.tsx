@@ -542,7 +542,7 @@ export default function BookedPage() {
           </p>
 
           <h2 className="text-[26px] sm:text-[44px] md:text-[42px] font-semibold text-[#323B46] leading-tight mb-6 sm:mb-10 text-center">
-            Save the Date
+            Confirm Your Call
           </h2>
 
           {/* Calendar Card */}
