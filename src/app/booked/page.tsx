@@ -277,7 +277,7 @@ function DynamicCalendarCard() {
         {/* Event Details */}
         <div className="flex-1 min-w-0">
           <h4 className="font-bold text-[14px] sm:text-[17px] text-[#323B46] mb-2 sm:mb-3">
-            Your Consultation is Booked | HUM
+            Your HUM Consultation Is Booked
           </h4>
           <div className="space-y-1 sm:space-y-1.5 text-[12px] sm:text-[14px]">
             <div className="flex">
