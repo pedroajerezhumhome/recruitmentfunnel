@@ -328,10 +328,45 @@ function DynamicCalendarCard() {
   );
 }
 
+// Personalized Hero Component
+function PersonalizedHero() {
+  const bookingDetails = useBookingDetails();
+
+  // Extract first name from invitee name
+  const firstName = bookingDetails?.inviteeName
+    ? bookingDetails.inviteeName.split(" ")[0]
+    : "";
+
+  return (
+    <section className="px-4 pt-4 pb-6 sm:pt-8 sm:pb-12 bg-[#fefdfb]">
+      <div className="max-w-2xl mx-auto text-center">
+        {/* Top Label */}
+        <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#b8926b] mb-4 sm:mb-6">
+          BOOKING CONFIRMED
+        </p>
+
+        {/* Main Headline */}
+        <h1 className="text-[28px] sm:text-[44px] md:text-[52px] font-semibold text-[#323B46] leading-[1.15] tracking-tight mb-3 sm:mb-5">
+          {firstName ? (
+            <>Congratulations {firstName},<br />You&apos;re Confirmed!</>
+          ) : (
+            <>Congratulations,<br />You&apos;re Confirmed!</>
+          )}
+        </h1>
+
+        {/* Description */}
+        <p className="text-[14px] sm:text-[20px] text-[#555] max-w-xl mx-auto mb-4 sm:mb-8 leading-relaxed px-2 sm:px-0">
+          Your life is about to get a whole lot easier. All the details for your upcoming call are on their way to your inbox and phone. But first, please review the important materials below.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function BookedPage() {
   return (
     <div className="bg-[#fefdfb] text-[#454545] min-h-screen">
-      
+
       {/* ===================================================================
           HEADER - Logo
       =================================================================== */}
@@ -340,27 +375,11 @@ export default function BookedPage() {
       </div>
 
       {/* ===================================================================
-          HERO SECTION - Confirmation Message
+          HERO SECTION - Personalized Confirmation Message
       =================================================================== */}
-      <section className="px-4 pt-4 pb-6 sm:pt-8 sm:pb-12 bg-[#fefdfb]">
-        <div className="max-w-2xl mx-auto text-center">
-          {/* Top Label */}
-          <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#b8926b] mb-4 sm:mb-6">
-            BOOKING CONFIRMED
-          </p>
-
-          {/* Main Headline */}
-          <h1 className="text-[28px] sm:text-[44px] md:text-[52px] font-semibold text-[#323B46] leading-[1.15] tracking-tight mb-3 sm:mb-5">
-            Congratulations,<br />
-            You&apos;re Confirmed!
-          </h1>
-
-          {/* Description */}
-          <p className="text-[14px] sm:text-[20px] text-[#555] max-w-xl mx-auto mb-4 sm:mb-8 leading-relaxed px-2 sm:px-0">
-            Your life is about to get a whole lot easier. All the details for your upcoming call are on their way to your inbox and phone. But first, please review the important materials below.
-          </p>
-        </div>
-      </section>
+      <Suspense fallback={null}>
+        <PersonalizedHero />
+      </Suspense>
 
       {/* ===================================================================
           COUNTDOWN TIMER - Time Until Consultation
