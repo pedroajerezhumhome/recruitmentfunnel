@@ -546,9 +546,9 @@ export default function Home() {
           </p>
 
           {/* iClosed Widget */}
-          <div className="mb-12 sm:mb-20 w-full max-w-3xl lg:max-w-6xl mx-auto">
+          <div className="mb-12 sm:mb-20 w-full max-w-3xl lg:max-w-6xl mx-auto [overflow-anchor:none]">
             <div
-              className="iclosed-widget h-[580px] sm:h-[620px]"
+              className="iclosed-widget min-h-[580px] sm:min-h-[620px] sm:h-[620px]"
               data-url="https://app.iclosed.io/e/hum/hum-household-assessment"
               title="HUM Household Assessment"
               style={{ width: "100%" }}

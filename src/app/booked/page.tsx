@@ -223,7 +223,7 @@ export default function BookedPage() {
           </p>
 
           {/* Main Headline */}
-          <h1 className="text-[28px] sm:text-[44px] md:text-[52px] font-normal text-[#323B46] leading-[1.15] tracking-tight mb-3 sm:mb-5">
+          <h1 className="text-[28px] sm:text-[44px] md:text-[52px] font-semibold text-[#323B46] leading-[1.15] tracking-tight mb-3 sm:mb-5">
             Congratulations,<br />
             You&apos;re Confirmed!
           </h1>
@@ -248,7 +248,7 @@ export default function BookedPage() {
       <section className="px-4 py-8 sm:py-16 bg-[#f8f6f2]">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
-          <h2 className="text-[26px] sm:text-[36px] md:text-[42px] font-normal text-[#323B46] leading-tight mb-8 sm:mb-12 text-center">
+          <h2 className="text-[26px] sm:text-[36px] md:text-[42px] font-semibold text-[#323B46] leading-tight mb-8 sm:mb-12 text-center">
             What Happens Next
           </h2>
 
@@ -395,7 +395,7 @@ export default function BookedPage() {
             STEP 1: ACCEPT YOUR CALENDAR INVITE
           </p>
 
-          <h2 className="text-[26px] sm:text-[44px] md:text-[52px] font-normal text-[#323B46] leading-tight mb-6 sm:mb-10 text-center">
+          <h2 className="text-[26px] sm:text-[44px] md:text-[42px] font-semibold text-[#323B46] leading-tight mb-6 sm:mb-10 text-center">
             Important Details Below
           </h2>
 
@@ -477,7 +477,7 @@ export default function BookedPage() {
             STEP 2: EVERYTHING YOU NEED TO KNOW
           </p>
 
-          <h2 className="text-[26px] sm:text-[44px] md:text-[52px] font-normal text-[#323B46] leading-tight mb-6 sm:mb-10">
+          <h2 className="text-[26px] sm:text-[44px] md:text-[42px] font-semibold text-[#323B46] leading-tight mb-6 sm:mb-10">
             Download Your<br />
             Pre-Call Guide
           </h2>
@@ -506,7 +506,7 @@ export default function BookedPage() {
       <section className="px-4 py-8 sm:py-16 bg-[#fefdfb]">
         <div className="max-w-2xl mx-auto">
           <div className="bg-[#ebe6df] rounded-2xl sm:rounded-3xl p-5 sm:p-10">
-            <h2 className="text-[24px] sm:text-[36px] md:text-[42px] font-normal text-[#323B46] leading-tight mb-5 sm:mb-8 text-center">
+            <h2 className="text-[24px] sm:text-[36px] md:text-[42px] font-semibold text-[#323B46] leading-tight mb-5 sm:mb-8 text-center">
               A Personal Note From<br />
               Our Founder <span className="inline-block">❤️</span>
             </h2>
