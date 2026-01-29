@@ -22,52 +22,63 @@ function getOrdinalSuffix(day: number): string {
   }
 }
 
-// Countdown Timer Component
-function CountdownTimer() {
+// Custom hook to parse booking details from URL parameters
+function useBookingDetails() {
   const searchParams = useSearchParams();
-
-  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [status, setStatus] = useState<"counting" | "now" | "passed" | "hidden">("hidden");
-  const [formattedDateTime, setFormattedDateTime] = useState("");
-  const [assignedTo, setAssignedTo] = useState("");
+  const [details, setDetails] = useState<{
+    targetDate: Date | null;
+    timeZone: string;
+    assignedTo: string;
+    month: string;
+    monthShort: string;
+    day: number;
+    weekday: string;
+    weekdayShort: string;
+    time: string;
+    tzAbbrev: string;
+    formattedDateTime: string;
+  } | null>(null);
 
   useEffect(() => {
-    // Parse URL parameters
     const eventStartTime = searchParams.get("event_start_time");
     const timeZone = searchParams.get("timeZone") || "America/Chicago";
     const assignedToParam = searchParams.get("assigned_to");
 
-    // If no event time, hide the section
     if (!eventStartTime) {
-      setStatus("hidden");
+      setDetails(null);
       return;
     }
 
-    // Decode and parse the event time
     const decodedTime = decodeURIComponent(eventStartTime);
     const targetDate = new Date(decodedTime);
 
-    // Validate the date
     if (isNaN(targetDate.getTime())) {
-      setStatus("hidden");
+      setDetails(null);
       return;
     }
 
-    // Set assigned to name
-    if (assignedToParam) {
-      setAssignedTo(decodeURIComponent(assignedToParam).replace(/\+/g, " ").trim());
-    }
-
-    // Format the date for display
     const decodedTimeZone = decodeURIComponent(timeZone);
+    const assignedTo = assignedToParam
+      ? decodeURIComponent(assignedToParam).replace(/\+/g, " ").trim()
+      : "";
 
     const weekday = targetDate.toLocaleDateString("en-US", {
       weekday: "long",
       timeZone: decodedTimeZone,
     });
 
+    const weekdayShort = targetDate.toLocaleDateString("en-US", {
+      weekday: "short",
+      timeZone: decodedTimeZone,
+    });
+
     const month = targetDate.toLocaleDateString("en-US", {
       month: "long",
+      timeZone: decodedTimeZone,
+    });
+
+    const monthShort = targetDate.toLocaleDateString("en-US", {
+      month: "short",
       timeZone: decodedTimeZone,
     });
 
@@ -83,13 +94,44 @@ function CountdownTimer() {
       timeZone: decodedTimeZone,
     });
 
-    // Get timezone abbreviation
     const tzAbbrev = targetDate.toLocaleTimeString("en-US", {
       timeZoneName: "short",
       timeZone: decodedTimeZone,
-    }).split(" ").pop();
+    }).split(" ").pop() || "";
 
-    setFormattedDateTime(`${weekday}, ${month} ${day}${getOrdinalSuffix(day)} at ${time} ${tzAbbrev}`);
+    const formattedDateTime = `${weekday}, ${month} ${day}${getOrdinalSuffix(day)} at ${time} ${tzAbbrev}`;
+
+    setDetails({
+      targetDate,
+      timeZone: decodedTimeZone,
+      assignedTo,
+      month,
+      monthShort,
+      day,
+      weekday,
+      weekdayShort,
+      time,
+      tzAbbrev,
+      formattedDateTime,
+    });
+  }, [searchParams]);
+
+  return details;
+}
+
+// Countdown Timer Component
+function CountdownTimer() {
+  const bookingDetails = useBookingDetails();
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [status, setStatus] = useState<"counting" | "now" | "passed" | "hidden">("hidden");
+
+  useEffect(() => {
+    if (!bookingDetails?.targetDate) {
+      setStatus("hidden");
+      return;
+    }
+
+    const targetDate = bookingDetails.targetDate;
 
     // Update countdown every second
     const updateCountdown = () => {
@@ -119,10 +161,12 @@ function CountdownTimer() {
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [searchParams]);
+  }, [bookingDetails]);
 
   // Don't render if hidden
-  if (status === "hidden") return null;
+  if (status === "hidden" || !bookingDetails) return null;
+
+  const { formattedDateTime, assignedTo } = bookingDetails;
 
   return (
     <section className="px-4 pt-2 pb-10 sm:pt-4 sm:pb-16 bg-[#fefdfb]">
@@ -198,6 +242,78 @@ function CountdownTimer() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Dynamic Calendar Card Component
+function DynamicCalendarCard() {
+  const bookingDetails = useBookingDetails();
+
+  // Fallback values if no URL params
+  const monthShort = bookingDetails?.monthShort || "TBD";
+  const day = bookingDetails?.day || "";
+  const weekdayShort = bookingDetails?.weekdayShort || "";
+  const formattedDateTime = bookingDetails?.formattedDateTime || "Check your email for details";
+  const assignedTo = bookingDetails?.assignedTo || "";
+
+  return (
+    <div className="bg-[#fefdfb] rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+        {/* Calendar Icon */}
+        <div className="flex-shrink-0 self-center sm:self-start">
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden w-20 sm:w-28">
+            <div className="bg-[#b8926b] text-white text-xs sm:text-base font-medium py-1.5 sm:py-2 text-center">
+              {monthShort}
+            </div>
+            <div className="py-3 sm:py-4 text-center bg-white">
+              <div className="text-3xl sm:text-5xl font-light text-[#323B46] leading-none">
+                {day || "?"}
+              </div>
+              <div className="text-xs sm:text-base text-[#888] mt-1">{weekdayShort || "---"}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Event Details */}
+        <div className="flex-1 min-w-0">
+          <h4 className="font-bold text-[14px] sm:text-[17px] text-[#323B46] mb-2 sm:mb-3">
+            Your Consultation is Booked | HUM
+          </h4>
+          <div className="space-y-1 sm:space-y-1.5 text-[12px] sm:text-[14px]">
+            <div className="flex">
+              <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">When</span>
+              <span className="text-[#555]">{formattedDateTime}</span>
+            </div>
+            <div className="flex">
+              <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">Where</span>
+              <span className="text-[#555] truncate">https://us06web.zoom.us/j/...</span>
+            </div>
+            {assignedTo && (
+              <div className="flex">
+                <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">Who</span>
+                <span className="text-[#555]">You &amp; {assignedTo}</span>
+              </div>
+            )}
+          </div>
+
+          {/* RSVP Buttons */}
+          <div className="flex gap-1.5 sm:gap-2 mt-3 sm:mt-4">
+            <button className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#6b8e5e] text-white text-[11px] sm:text-[13px] font-medium rounded-lg">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              Yes
+            </button>
+            <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-[#ddd] text-[#555] text-[11px] sm:text-[13px] font-medium rounded-lg">
+              Maybe
+            </button>
+            <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-[#ddd] text-[#555] text-[11px] sm:text-[13px] font-medium rounded-lg">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -405,60 +521,10 @@ export default function BookedPage() {
               Confirm the calendar invite that was just sent to your email.
             </h3>
 
-            {/* Calendar Invite Preview */}
-            <div className="bg-[#fefdfb] rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                {/* Calendar Icon */}
-                <div className="flex-shrink-0 self-center sm:self-start">
-                  <div className="bg-white rounded-xl shadow-sm overflow-hidden w-20 sm:w-28">
-                    <div className="bg-[#b8926b] text-white text-xs sm:text-base font-medium py-1.5 sm:py-2 text-center">
-                      Jan
-                    </div>
-                    <div className="py-3 sm:py-4 text-center bg-white">
-                      <div className="text-3xl sm:text-5xl font-light text-[#323B46] leading-none">1</div>
-                      <div className="text-xs sm:text-base text-[#888] mt-1">Thur</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Event Details */}
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-[14px] sm:text-[17px] text-[#323B46] mb-2 sm:mb-3">
-                    Your Consultation is Booked | HUM
-                  </h4>
-                  <div className="space-y-1 sm:space-y-1.5 text-[12px] sm:text-[14px]">
-                    <div className="flex">
-                      <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">When</span>
-                      <span className="text-[#555]">Date of your appointment here</span>
-                    </div>
-                    <div className="flex">
-                      <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">Where</span>
-                      <span className="text-[#555] truncate">https://us06web.zoom.us/j/...</span>
-                    </div>
-                    <div className="flex">
-                      <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">Who</span>
-                      <span className="text-[#555]">Your Name, Pedro*</span>
-                    </div>
-                  </div>
-
-                  {/* RSVP Buttons */}
-                  <div className="flex gap-1.5 sm:gap-2 mt-3 sm:mt-4">
-                    <button className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#6b8e5e] text-white text-[11px] sm:text-[13px] font-medium rounded-lg">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      Yes
-                    </button>
-                    <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-[#ddd] text-[#555] text-[11px] sm:text-[13px] font-medium rounded-lg">
-                      Maybe
-                    </button>
-                    <button className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-[#ddd] text-[#555] text-[11px] sm:text-[13px] font-medium rounded-lg">
-                      No
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Dynamic Calendar Invite Preview */}
+            <Suspense fallback={null}>
+              <DynamicCalendarCard />
+            </Suspense>
 
             <p className="text-[12px] sm:text-[14px] text-[#555] leading-relaxed">
               <span className="font-semibold">Why this matters:</span> Confirming your calendar invite ensures we have your appointment locked in and you&apos;ll receive all the important details and reminders leading up to our call.
