@@ -548,7 +548,7 @@ export default function BookedPage() {
           {/* Calendar Card */}
           <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-sm">
             <h3 className="text-[15px] sm:text-[20px] font-semibold text-[#323B46] mb-2">
-              Accept the calendar invite that was just sent to your email.
+              Click yes on the calendar invite that was sent to your email.
             </h3>
 
             {/* Dynamic Calendar Invite Preview */}
