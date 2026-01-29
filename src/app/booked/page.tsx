@@ -29,6 +29,7 @@ function useBookingDetails() {
     targetDate: Date | null;
     timeZone: string;
     assignedTo: string;
+    inviteeName: string;
     month: string;
     monthShort: string;
     day: number;
@@ -43,6 +44,7 @@ function useBookingDetails() {
     const eventStartTime = searchParams.get("event_start_time");
     const timeZone = searchParams.get("timeZone") || "America/Chicago";
     const assignedToParam = searchParams.get("assigned_to");
+    const inviteeFullName = searchParams.get("invitee_full_name");
 
     if (!eventStartTime) {
       setDetails(null);
@@ -60,6 +62,9 @@ function useBookingDetails() {
     const decodedTimeZone = decodeURIComponent(timeZone);
     const assignedTo = assignedToParam
       ? decodeURIComponent(assignedToParam).replace(/\+/g, " ").trim()
+      : "";
+    const inviteeName = inviteeFullName
+      ? decodeURIComponent(inviteeFullName).replace(/\+/g, " ").trim()
       : "";
 
     const weekday = targetDate.toLocaleDateString("en-US", {
@@ -105,6 +110,7 @@ function useBookingDetails() {
       targetDate,
       timeZone: decodedTimeZone,
       assignedTo,
+      inviteeName,
       month,
       monthShort,
       day,
@@ -255,6 +261,7 @@ function DynamicCalendarCard() {
   const weekdayShort = bookingDetails?.weekdayShort || "";
   const formattedDateTime = bookingDetails?.formattedDateTime || "Check your email for details";
   const assignedTo = bookingDetails?.assignedTo || "";
+  const inviteeName = bookingDetails?.inviteeName || "";
 
   return (
     <div className="bg-[#fefdfb] rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -286,12 +293,16 @@ function DynamicCalendarCard() {
             </div>
             <div className="flex">
               <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">Where</span>
-              <span className="text-[#555] truncate">https://us06web.zoom.us/j/...</span>
+              <span className="text-[#555]">Zoom (check your email)</span>
             </div>
-            {assignedTo && (
+            {(inviteeName || assignedTo) && (
               <div className="flex">
                 <span className="text-[#888] w-12 sm:w-14 flex-shrink-0">Who</span>
-                <span className="text-[#555]">You &amp; {assignedTo}</span>
+                <span className="text-[#555]">
+                  {inviteeName && assignedTo
+                    ? `${inviteeName} & ${assignedTo}`
+                    : inviteeName || `You & ${assignedTo}`}
+                </span>
               </div>
             )}
           </div>
