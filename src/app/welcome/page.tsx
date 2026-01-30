@@ -303,31 +303,18 @@ function ActionStepsSection() {
 
           {/* STEP 3: Kickoff Call */}
           {activeStep === 3 && (
-            <div>
-              {/* Pedro intro */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-shrink-0 bg-[#f8f6f2]">
-                  <img
-                    src="/pedro-headshot.png"
-                    alt="Pedro - Co-Founder"
-                    className="w-full h-full object-cover object-top scale-125"
-                  />
-                </div>
-                <div>
-                  <p className="text-[16px] sm:text-[18px] font-semibold text-[#323B46]">
-                    Pedro Jerez
-                  </p>
-                  <p className="text-[13px] sm:text-[14px] text-[#888]">
-                    Co-Founder, HUM
-                  </p>
-                </div>
+            <div className="text-center">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#f8f6f2] rounded-full flex items-center justify-center mx-auto mb-5 sm:mb-6">
+                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#b8926b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
               </div>
 
-              <h3 className="text-[20px] sm:text-[24px] font-semibold text-[#323B46] mb-3 text-center">
+              <h3 className="text-[20px] sm:text-[24px] font-semibold text-[#323B46] mb-3">
                 Schedule Your Kickoff Call
               </h3>
 
-              <p className="text-[14px] sm:text-[16px] text-[#555] mb-6 leading-relaxed text-center max-w-md mx-auto">
+              <p className="text-[14px] sm:text-[16px] text-[#555] mb-6 leading-relaxed max-w-md mx-auto">
                 Schedule for <span className="font-semibold">three days after completing your questionnaire</span>. This gives us time for your answers and preparation.
               </p>
 
