@@ -477,13 +477,13 @@ function JourneyTimeline() {
 
         {/* Vertical Timeline - Mobile */}
         <div className="sm:hidden">
-          <div className="relative pl-8">
-            <div className="absolute left-[14px] top-2 bottom-2 w-[2px] bg-[#e0d8cd]" />
+          <div className="relative pl-10">
+            <div className="absolute left-[12px] top-2 bottom-2 w-[2px] bg-[#e0d8cd]" />
 
             {milestones.map((milestone, index) => (
               <div key={index} className={`relative ${index < milestones.length - 1 ? "pb-6" : ""}`}>
                 <div
-                  className={`absolute left-[-22px] w-6 h-6 rounded-full flex items-center justify-center ring-4 ring-[#fefdfb] ${
+                  className={`absolute left-[-28px] w-6 h-6 rounded-full flex items-center justify-center ring-4 ring-[#fefdfb] ${
                     milestone.isActive ? "bg-[#b8926b]" : "bg-[#d4ccc0]"
                   }`}
                 >
