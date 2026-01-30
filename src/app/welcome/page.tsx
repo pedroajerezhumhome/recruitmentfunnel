@@ -590,7 +590,7 @@ function HowWeBuildSection() {
 // =============================================================================
 function TeamSection() {
   return (
-    <section className="px-4 py-10 sm:py-16 bg-[#fefdfb]">
+    <section className="px-4 py-10 sm:py-16 bg-[#f8f6f2]">
       <div className="max-w-3xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-10">
@@ -609,7 +609,7 @@ function TeamSection() {
         {/* Team Cards */}
         <div className="space-y-4">
           {/* Pedro - Assigned */}
-          <div className="bg-[#f8f6f2] rounded-xl sm:rounded-2xl p-5 sm:p-6 flex items-center gap-4 sm:gap-6">
+          <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 flex items-center gap-4 sm:gap-6">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-shrink-0 bg-white ring-4 ring-white">
               <img
                 src="/pedro-headshot.png"
@@ -638,7 +638,7 @@ function TeamSection() {
           {/* Coming Soon Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Account Manager */}
-            <div className="bg-[#f8f6f2] rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-dashed border-[#e0d8cd]">
+            <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-dashed border-[#e0d8cd]">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full bg-[#ebe6df] flex items-center justify-center">
                   <svg className="w-6 h-6 text-[#c9b8a3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -658,7 +658,7 @@ function TeamSection() {
             </div>
 
             {/* Recruiter */}
-            <div className="bg-[#f8f6f2] rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-dashed border-[#e0d8cd]">
+            <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-dashed border-[#e0d8cd]">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full bg-[#ebe6df] flex items-center justify-center">
                   <svg className="w-6 h-6 text-[#c9b8a3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
