@@ -744,9 +744,9 @@ export default function WelcomePage() {
       <JourneyTimeline />
 
       {/* ===================================================================
-          HOW WE BUILD - Simplified 4 phases
+          HOW WE BUILD - Simplified 4 phases (HIDDEN)
       =================================================================== */}
-      <HowWeBuildSection />
+      {/* <HowWeBuildSection /> */}
 
       {/* ===================================================================
           YOUR HUM TEAM
